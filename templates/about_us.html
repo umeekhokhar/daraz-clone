@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Daraz Clone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .about-section {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+        .about-section h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .about-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        .about-card:hover {
+            transform: translateY(-10px);
+        }
+        .about-card i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        .about-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (Common) -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-3" id="user-auth-section">
+                    <a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#loginModal">LOGIN</a>
+                    <a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#registerModal">SIGN UP</a>
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-white">SAVE MORE ON APP</a>
+                    <a href="#" class="text-white">SELL ON DARAZ</a>
+                    <a href="#" class="text-white">HELP & SUPPORT</a>
+                    <a href="#" class="text-white">LANGUAGE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <header class="py-3 bg-white shadow-sm">
+        <div class="container">
+            <div class="row align-items-center header">
+                <div class="col-lg-6 col-md-6 order-md-2 mb-3 mb-md-0 search-bar-col">
+                    <div class="search-bar">
+                        <input type="text" class="form-control" placeholder="Search in Daraz...">
+                        <button class="btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 order-md-3 text-end logo-container-col">
+                    <div class="logo-container d-inline-flex align-items-center">
+                        <i class="fas fa-shopping-bag fs-2 me-2 text-primary"></i>
+                        <span class="logo">Daraz</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 order-md-4 text-end cart-wishlist-col">
+                    <div class="d-flex justify-content-end gap-3">
+                        <a href="#" class="btn position-relative">
+                            <i class="fas fa-heart fs-4"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">0</span>
+                        </a>
+                        <a href="#" class="btn position-relative" data-bs-toggle="modal" data-bs-target="#cartModal">
+                            <i class="fas fa-shopping-cart fs-4"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <nav class="navbar navbar-expand-lg bg-white py-2 border-top border-bottom">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">View Cart</a>
+                    </li>
+                    <li class="nav-item d-none" id="admin-panel-nav-item">
+                        <a class="nav-link" href="/admin">Admin Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Us Content -->
+    <section class="about-section">
+        <div class="container">
+            <h2>Our Story</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <p>Welcome to Daraz Clone, your premier destination for online shopping! We are dedicated to bringing you the best products from a wide range of categories, all at competitive prices. Our mission is to provide a seamless and enjoyable shopping experience, right from the comfort of your home.</p>
+                    <p>Founded in [Year], Daraz Clone started with a vision to revolutionize e-commerce by focusing on customer satisfaction, product quality, and technological innovation. We believe in building strong relationships with our customers and suppliers, fostering a community where trust and transparency are paramount.</p>
+                    <p>Our team is passionate about what we do. From sourcing the latest trends to ensuring secure transactions and timely deliveries, every step of our process is designed with you in mind. We constantly strive to improve our platform, add new features, and expand our product offerings to meet your evolving needs.</p>
+                    <p>Thank you for choosing Daraz Clone. We are excited to have you on board and look forward to serving you with excellence!</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="about-card">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Customer Focus</h3>
+                        <p>Your satisfaction is our top priority. We are committed to providing exceptional service and support.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="about-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Innovation</h3>
+                        <p>We continuously innovate to make your shopping experience smarter, faster, and more convenient.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="about-card">
+                        <i class="fas fa-award"></i>
+                        <h3>Quality Products</h3>
+                        <p>We partner with trusted brands and suppliers to ensure you receive only the best quality products.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Common) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Customer Service</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">How to Buy</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Daraz</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Daraz Blog</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Digital Payments</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Download App</h5>
+                    <p>Experience shopping on the go</p>
+                    <div class="app-badges">
+                        <a href="#" class="app-badge">
+                            <i class="fab fa-apple me-2"></i> App Store
+                        </a>
+                        <a href="#" class="app-badge">
+                            <i class="fab fa-google-play me-2"></i> Google Play
+                        </a>
+                    </div>
+                    <div class="social-links mt-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Payment Methods</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <img src="https://via.placeholder.com/50x30" alt="Visa" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="Mastercard" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="PayPal" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="JazzCash" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="EasyPaisa" class="img-fluid">
+                    </div>
+                    <h5 class="footer-title mt-4">Verified by</h5>
+                    <img src="https://via.placeholder.com/100x40" alt="Verified" class="img-fluid">
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Daraz Clone. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login/Register Modals (Common) -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login to Your Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs auth-tabs mb-4" id="authTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Login</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">Register</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="authTabContent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel">
+                            <form id="login-form">
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" id="login-email" placeholder="Email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="login-password" placeholder="Password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember">
+                                    <label class="form-check-label" for="remember">Remember me</label>
+                                </div>
+                                <button type="submit" class="btn-auth">Login</button>
+                                <div class="text-center mt-3">
+                                    <a href="#" class="text-primary">Forgot Password?</a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="register" role="tabpanel">
+                            <form id="register-form">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="register-fullname" placeholder="Full Name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" id="register-email" placeholder="Email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="register-password" placeholder="Password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="register-confirm-password" placeholder="Confirm Password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="terms">
+                                    <label class="form-check-label" for="terms">I agree to the Terms & Conditions</label>
+                                </div>
+                                <button type="submit" class="btn-auth">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal (Common) -->
+    <div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Your Shopping Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cart-items-container">
+                        <p id="empty-cart-message" class="text-center text-muted d-none">Your cart is empty.</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                        <h5>Total: <span id="cart-total">PKR 0</span></h5>
+                        <button class="btn btn-primary-custom">Proceed to Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>

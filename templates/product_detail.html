@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="product-page-title">Product Details - Daraz Clone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Specific styles for product detail page */
+        .product-detail-section {
+            padding: 40px 0;
+        }
+        .product-image-main img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .product-info h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .product-info .price {
+            font-size: 2rem;
+            color: #f85606; /* Daraz orange */
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .product-info .original-price {
+            font-size: 1.2rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+        .product-info .rating {
+            color: #ffc107; /* Gold stars */
+            margin-bottom: 15px;
+        }
+        .product-info .rating span {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .product-info .description {
+            margin-top: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .quantity-selector button {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #ddd;
+            background-color: #f8f8f8;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .quantity-selector input {
+            width: 60px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-left: none;
+            border-right: none;
+            height: 35px;
+            -moz-appearance: textfield; /* Firefox */
+        }
+        .quantity-selector input::-webkit-outer-spin-button,
+        .quantity-selector input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .btn-add-to-cart {
+            background-color: #f85606; /* Daraz orange */
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-add-to-cart:hover {
+            background-color: #e04a00;
+            color: white;
+        }
+        .btn-buy-now {
+            background-color: #0d6efd; /* Bootstrap primary blue */
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            border: none;
+            margin-left: 15px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-buy-now:hover {
+            background-color: #0a58ca;
+            color: white;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            margin-top: 50px;
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+        }
+        .review-item {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fdfdfd;
+        }
+        .review-item .reviewer-name {
+            font-weight: bold;
+            color: #333;
+        }
+        .review-item .review-date {
+            font-size: 0.85rem;
+            color: #888;
+            margin-left: 10px;
+        }
+        .review-item .review-rating {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+        .review-item .review-comment {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-3" id="user-auth-section">
+                    <a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#loginModal">LOGIN</a>
+                    <a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#registerModal">SIGN UP</a>
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-white">SAVE MORE ON APP</a>
+                    <a href="#" class="text-white">SELL ON DARAZ</a>
+                    <a href="#" class="text-white">HELP & SUPPORT</a>
+                    <a href="#" class="text-white">LANGUAGE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <header class="py-3 bg-white shadow-sm">
+        <div class="container">
+            <div class="row align-items-center header">
+                <div class="col-lg-6 col-md-6 order-md-2 mb-3 mb-md-0 search-bar-col">
+                    <div class="search-bar">
+                        <input type="text" class="form-control" placeholder="Search in Daraz...">
+                        <button class="btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 order-md-3 text-end logo-container-col">
+                    <div class="logo-container d-inline-flex align-items-center">
+                        <i class="fas fa-shopping-bag fs-2 me-2 text-primary"></i>
+                        <span class="logo">Daraz</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 order-md-4 text-end cart-wishlist-col">
+                    <div class="d-flex justify-content-end gap-3">
+                        <a href="#" class="btn position-relative">
+                            <i class="fas fa-heart fs-4"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">0</span>
+                        </a>
+                        <a href="#" class="btn position-relative" data-bs-toggle="modal" data-bs-target="#cartModal">
+                            <i class="fas fa-shopping-cart fs-4"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <nav class="navbar navbar-expand-lg bg-white py-2 border-top border-bottom">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">View Cart</a>
+                    </li>
+                    <li class="nav-item d-none" id="admin-panel-nav-item">
+                        <a class="nav-link" href="/admin">Admin Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="product-detail-section container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="product-image-main">
+                    <img id="product-main-image" src="/static/images/no-image.webp" alt="Product Image">
+                </div>
+                </div>
+            <div class="col-md-6 product-info">
+                <h1 id="product-name">Loading Product...</h1>
+                <div class="price-section">
+                    <span class="price" id="product-price">PKR 0</span>
+                    <span class="original-price" id="product-original-price" style="display: none;"></span>
+                </div>
+                <div class="rating" id="product-rating">
+                    <span class="ms-1" id="product-reviews">(0 reviews)</span>
+                </div>
+                <p id="product-description">Loading description...</p>
+
+                <div class="quantity-selector mt-4">
+                    <button class="btn btn-outline-secondary" id="decrease-quantity">-</button>
+                    <input type="number" id="product-quantity" value="1" min="1" class="form-control">
+                    <button class="btn btn-outline-secondary" id="increase-quantity">+</button>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-add-to-cart" id="add-to-cart-button">
+                        <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                    </button>
+                    <button class="btn btn-buy-now">Buy Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <h3 class="mb-4">Customer Reviews (<span id="total-reviews-count">0</span>)</h3>
+            <div id="reviews-container">
+                <p class="text-muted text-center" id="no-reviews-message">No reviews yet. Be the first to review this product!</p>
+                </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Customer Service</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">How to Buy</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Daraz</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Daraz Blog</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Digital Payments</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Download App</h5>
+                    <p>Experience shopping on the go</p>
+                    <div class="app-badges">
+                        <a href="#" class="app-badge">
+                            <i class="fab fa-apple me-2"></i> App Store
+                        </a>
+                        <a href="#" class="app-badge">
+                            <i class="fab fa-google-play me-2"></i> Google Play
+                        </a>
+                    </div>
+                    <div class="social-links mt-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Payment Methods</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <img src="https://via.placeholder.com/50x30" alt="Visa" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="Mastercard" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="PayPal" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="JazzCash" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="EasyPaisa" class="img-fluid">
+                    </div>
+                    <h5 class="footer-title mt-4">Verified by</h5>
+                    <img src="https://via.placeholder.com/100x40" alt="Verified" class="img-fluid">
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Daraz Clone. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login to Your Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs auth-tabs mb-4" id="authTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Login</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">Register</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="authTabContent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel">
+                            <form id="login-form">
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" id="login-email" placeholder="Email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="login-password" placeholder="Password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember">
+                                    <label class="form-check-label" for="remember">Remember me</label>
+                                </div>
+                                <button type="submit" class="btn-auth">Login</button>
+                                <div class="text-center mt-3">
+                                    <a href="#" class="text-primary">Forgot Password?</a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="register" role="tabpanel">
+                            <form id="register-form">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="register-fullname" placeholder="Full Name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" id="register-email" placeholder="Email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="register-password" placeholder="Password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="register-confirm-password" placeholder="Confirm Password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="terms">
+                                    <label class="form-check-label" for="terms">I agree to the Terms & Conditions</label>
+                                </div>
+                                <button type="submit" class="btn-auth">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Your Shopping Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cart-items-container">
+                        <p id="empty-cart-message" class="text-center text-muted d-none">Your cart is empty.</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                        <h5>Total: <span id="cart-total">PKR 0</span></h5>
+                        <button class="btn btn-primary-custom">Proceed to Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/script.js"></script> <script src="/static/product_detail.js"></script> </body>
+</html>

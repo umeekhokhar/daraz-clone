@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Daraz Clone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Admin specific styles */
+        .admin-dashboard-section {
+            padding: 40px 0;
+        }
+        .sidebar {
+            background-color: #f8f9fa;
+            border-right: 1px solid #e0e0e0;
+            padding: 20px;
+            min-height: calc(100vh - 120px); /* Adjust based on header/footer height */
+        }
+        .sidebar .nav-link {
+            color: #333;
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        .sidebar .nav-link.active,
+        .sidebar .nav-link:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        .content-area {
+            padding: 20px;
+        }
+        .stat-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.05);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .stat-card h3 {
+            font-size: 1.5rem;
+            color: #555;
+        }
+        .stat-card p {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .table img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-3" id="user-auth-section">
+                    <a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#loginModal">LOGIN</a>
+                    <a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#registerModal">SIGN UP</a>
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-white">SAVE MORE ON APP</a>
+                    <a href="#" class="text-white">SELL ON DARAZ</a>
+                    <a href="#" class="text-white">HELP & SUPPORT</a>
+                    <a href="#" class="text-white">LANGUAGE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header class="py-3 bg-white shadow-sm">
+        <div class="container">
+            <div class="row align-items-center header">
+                <div class="col-lg-6 col-md-6 order-md-2 mb-3 mb-md-0 search-bar-col">
+                    <div class="search-bar">
+                        <input type="text" class="form-control" placeholder="Search in Daraz...">
+                        <button class="btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 order-md-3 text-end logo-container-col">
+                    <div class="logo-container d-inline-flex align-items-center">
+                        <i class="fas fa-shopping-bag fs-2 me-2 text-primary"></i>
+                        <span class="logo">Daraz</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 order-md-4 text-end cart-wishlist-col">
+                    <div class="d-flex justify-content-end gap-3">
+                        <a href="#" class="btn position-relative">
+                            <i class="fas fa-heart fs-4"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">0</span>
+                        </a>
+                        <a href="#" class="btn position-relative" data-bs-toggle="modal" data-bs-target="#cartModal">
+                            <i class="fas fa-shopping-cart fs-4"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white py-2 border-top border-bottom">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">View Cart</a>
+                    </li>
+                    <li class="nav-item d-none" id="admin-panel-nav-item">
+                        <a class="nav-link active" href="/admin">Admin Dashboard</a>
+                    </li>
+                    <!-- NEW LINKS -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Dashboard Section -->
+    <section class="admin-dashboard-section container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#products-management" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="products-management">
+                                <i class="fas fa-boxes me-2"></i> Products
+                            </a>
+                            <div class="collapse show" id="products-management">
+                                <ul class="nav flex-column ps-3">
+                                    <li class="nav-item"><a class="nav-link" href="#admin-products-list" data-bs-toggle="tab">View All Products</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#add-product-form-tab" data-bs-toggle="tab">Add New Product</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-users-cog me-2"></i> Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-chart-line me-2"></i> Analytics
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content Area -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content-area">
+                <h1 class="h2 mb-4">Dashboard</h1>
+
+                <!-- Summary Cards -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <h3>Total Products</h3>
+                            <p id="admin-product-count">0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <h3>Total Orders</h3>
+                            <p>0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <h3>Registered Users</h3>
+                            <p>1</p> <!-- Placeholder -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content for Products -->
+                <div class="tab-content mt-4">
+                    <!-- Products List Tab Pane -->
+                    <div class="tab-pane fade show active" id="admin-products-list" role="tabpanel">
+                        <h2 class="mb-3">All Products</h2>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-product-table-body">
+                                    <tr><td colspan="7" class="text-center text-muted">Loading products...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Add New Product Form Tab Pane -->
+                    <div class="tab-pane fade" id="add-product-form-tab" role="tabpanel">
+                        <h2 class="mb-3">Add New Product</h2>
+                        <form id="add-product-form">
+                            <div class="mb-3">
+                                <label for="product-name" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="product-name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="product-category" class="form-label">Category</label>
+                                <input type="text" class="form-control" id="product-category" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="product-price" class="form-label">Price (PKR)</label>
+                                    <input type="number" step="0.01" class="form-control" id="product-price" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="product-original-price" class="form-label">Original Price (Optional)</label>
+                                    <input type="number" step="0.01" class="form-control" id="product-original-price">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="product-image-url" class="form-label">Image URL</label>
+                                <input type="url" class="form-control" id="product-image-url" placeholder="e.g., https://example.com/image.jpg" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="product-rating" class="form-label">Rating (0.0 - 5.0)</label>
+                                    <input type="number" step="0.1" min="0" max="5" class="form-control" id="product-rating" value="0.0">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="product-reviews" class="form-label">Number of Reviews</label>
+                                    <input type="number" min="0" class="form-control" id="product-reviews" value="0">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="product-description" class="form-label">Description</label>
+                                <textarea class="form-control" id="product-description" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary-custom">Add Product</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Footer (Common) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Customer Service</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">How to Buy</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Daraz</h5>
+                    <ul class="footer-links">
+                        <li><li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Daraz Blog</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Digital Payments</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Download App</h5>
+                    <p>Experience shopping on the go</p>
+                    <div class="app-badges">
+                        <a href="#" class="app-badge">
+                            <i class="fab fa-apple me-2"></i> App Store
+                        </a>
+                        <a href="#" class="app-badge">
+                            <i class="fab fa-google-play me-2"></i> Google Play
+                        </a>
+                    </div>
+                    <div class="social-links mt-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Payment Methods</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <img src="https://via.placeholder.com/50x30" alt="Visa" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="Mastercard" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="PayPal" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="JazzCash" class="img-fluid">
+                        <img src="https://via.placeholder.com/50x30" alt="EasyPaisa" class="img-fluid">
+                    </div>
+                    <h5 class="footer-title mt-4">Verified by</h5>
+                    <img src="https://via.placeholder.com/100x40" alt="Verified" class="img-fluid">
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Daraz Clone. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login/Register Modals (Common) -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login to Your Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs auth-tabs mb-4" id="authTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Login</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">Register</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="authTabContent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel">
+                            <form id="login-form">
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" id="login-email" placeholder="Email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="login-password" placeholder="Password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember">
+                                    <label class="form-check-label" for="remember">Remember me</label>
+                                </div>
+                                <button type="submit" class="btn-auth">Login</button>
+                                <div class="text-center mt-3">
+                                    <a href="#" class="text-primary">Forgot Password?</a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="register" role="tabpanel">
+                            <form id="register-form">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="register-fullname" placeholder="Full Name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" id="register-email" placeholder="Email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="register-password" placeholder="Password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="register-confirm-password" placeholder="Confirm Password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="terms">
+                                    <label class="form-check-label" for="terms">I agree to the Terms & Conditions</label>
+                                </div>
+                                <button type="submit" class="btn-auth">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal (Common) -->
+    <div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Your Shopping Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cart-items-container">
+                        <p id="empty-cart-message" class="text-center text-muted d-none">Your cart is empty.</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                        <h5>Total: <span id="cart-total">PKR 0</span></h5>
+                        <button class="btn btn-primary-custom">Proceed to Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/script.js"></script> <!-- Link to your main script.js -->
+</body>
+</html>
